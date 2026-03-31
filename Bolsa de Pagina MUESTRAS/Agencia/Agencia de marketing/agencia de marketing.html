@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ESTRATO — Agencia de Marketing Estratégico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --ink: #0a0c10;
+      --ink-muted: #2c3e44;
+      --accent: #1a5f6e;
+      --accent-light: #eef2f5;
+      --accent-glow: rgba(26, 95, 110, 0.08);
+      --border: #e2e8f0;
+      --gray-soft: #f1f5f9;
+      --radius: 0px;
+      --gap: clamp(2rem, 6vw, 6rem);
+      --transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* tipografía limpia */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* layout base */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--gap);
+    }
+
+    /* NAV — minimal, sin fondo hasta scroll */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.2rem var(--gap);
+      transition: var(--transition);
+      background: transparent;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      transition: var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    .nav-pill {
+      background: var(--ink);
+      color: white;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .nav-pill:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* hero geométrico, líneas limpias */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 8rem var(--gap) 5rem;
+    }
+    .hero-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: var(--accent-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero-highlight {
+      color: var(--accent);
+      border-bottom: 3px solid var(--accent);
+      display: inline-block;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--ink-muted);
+      margin-bottom: 2.2rem;
+      max-width: 90%;
+      line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .stat-item {
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+    }
+    .hero-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.02);
+    }
+    .grid-pattern {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .grid-cell {
+      background: white;
+      border: 1px solid var(--border);
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+    .grid-cell:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+    .abstract-line {
+      margin-top: 1.5rem;
+      height: 4px;
+      background: var(--accent);
+      width: 40%;
+      border-radius: 2px;
+    }
+
+    /* secciones generales */
+    section {
+      padding: calc(var(--gap) * 1.5) var(--gap);
+    }
+    .section-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .section-sub {
+      color: var(--ink-muted);
+      max-width: 55ch;
+      margin-bottom: 3rem;
+    }
+
+    /* about minimal */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .about-card {
+      border-top: 2px solid var(--accent);
+      padding-top: 1.2rem;
+    }
+    .about-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+    .about-card p {
+      color: var(--ink-muted);
+      font-size: 0.95rem;
+    }
+
+    /* servicios – estilo datos y columnas limpias */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .service-item {
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      border-radius: 20px;
+      transition: var(--transition);
+      background: white;
+    }
+    .service-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.03);
+    }
+    .service-icon {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+      color: var(--accent);
+    }
+    .service-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .service-meta {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 1rem;
+      display: inline-block;
+    }
+
+    /* proyectos – cuadrícula 2 columnas, sin ornamentos */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.05);
+      border-color: var(--accent);
+    }
+    .project-img {
+      background: #eef2fa;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-info {
+      padding: 1.5rem;
+    }
+    .project-cat {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+
+    /* proceso – timeline limpio */
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .step {
+      display: flex;
+      gap: 1.2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.8rem;
+    }
+    .step-number {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-light);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+    }
+    .step-text h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+    .step-text p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+    }
+
+    /* contacto – formulario minimal */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      background: var(--surface);
+      padding: 3rem;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem 0;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    input:focus, textarea:focus {
+      border-bottom-color: var(--accent);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .btn-submit {
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 0.8rem;
+    }
+    .btn-submit:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3rem var(--gap);
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .footer-col h4 {
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.5rem;
+      transition: var(--transition);
+    }
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+    .copyright {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* animaciones reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* responsive */
+    @media (max-width: 860px) {
+      .hero-grid, .about-grid, .services-grid, .projects-grid, .process-grid, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-stats {
+        flex-wrap: wrap;
+      }
+      .services-grid {
+        gap: 1rem;
+      }
+      .contact-grid {
+        padding: 1.8rem;
+      }
+    }
+    @media (max-width: 480px) {
+      :root {
+        --gap: 1.5rem;
+      }
+      .project-img {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">ESTRATO</a>
+    <ul class="nav-links">
+      <li><a href="#about">Enfoque</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proyectos">Casos</a></li>
+      <li><a href="#proceso">Método</a></li>
+    </ul>
+    <a href="#contacto" class="nav-pill">Conversemos →</a>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero section -->
+  <section class="hero" id="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-badge reveal">MARKETING BASADO EN DATOS</span>
+        <h1 class="reveal">Decisiones que<br>generan <span class="hero-highlight">resultados</span> medibles.</h1>
+        <p class="hero-desc reveal">Estrategia, performance y branding con métricas reales. Transformamos datos en crecimiento escalable para marcas que exigen retorno.</p>
+        <div class="hero-stats reveal">
+          <div class="stat-item"><div class="stat-number" data-target="187">0</div><div class="stat-label">Campañas lanzadas</div></div>
+          <div class="stat-item"><div class="stat-number" data-target="42">0</div><div class="stat-label">Clientes activos</div></div>
+          <div class="stat-item"><div class="stat-number" data-target="3.8">0</div><div class="stat-label">ROI promedio x</div></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="grid-pattern">
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+        <div class="abstract-line"></div>
+        <p style="font-size: 0.7rem; margin-top: 1rem; color: var(--ink-muted); text-align: right;">estructura analítica</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Filosofía -->
+  <section id="about">
+    <div class="container">
+      <div class="section-tag reveal">— ESTRATEGIA Y PRECISIÓN</div>
+      <h2 class="section-title reveal">Marketing que escala<br>con evidencia.</h2>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <h3>Enfoque en rendimiento</h3>
+          <p>Cada acción se diseña con KPIs claros. Desde awareness hasta conversión, optimizamos en tiempo real para que cada euro cuente.</p>
+        </div>
+        <div class="about-card reveal">
+          <h3>Modelos predictivos</h3>
+          <p>Utilizamos análisis avanzado para anticipar tendencias y ajustar estrategias antes de que el mercado cambie.</p>
+        </div>
+        <div class="about-card reveal">
+          <h3>Transparencia total</h3>
+          <p>Dashboards en vivo, reporting sin ambigüedades. Sabes exactamente el impacto de cada inversión.</p>
+        </div>
+        <div class="about-card reveal">
+          <h3>Equipo multidisciplinar</h3>
+          <p>Analistas, creativos y technologists trabajan integrados para construir marcas rentables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios de marketing -->
+  <section id="servicios" style="background: var(--surface);">
+    <div class="container">
+      <div class="section-tag reveal">— ESPECIALIDADES</div>
+      <h2 class="section-title reveal">Servicios de alto impacto</h2>
+      <div class="services-grid">
+        <div class="service-item reveal"><div class="service-icon">📊</div><h3>Estrategia & Analytics</h3><p>Customer intelligence, funnel optimization y modelos de atribución.</p><span class="service-meta">ROI driven →</span></div>
+        <div class="service-item reveal"><div class="service-icon">🎯</div><h3>Performance Marketing</h3><p>Google Ads, Meta, programática — gestión enfocada en CPA y ROAS.</p><span class="service-meta">escalable →</span></div>
+        <div class="service-item reveal"><div class="service-icon">🧠</div><h3>Brand Strategy</h3><p>Posicionamiento, arquitectura de marca y narrativa con propósito comercial.</p><span class="service-meta">diferenciación →</span></div>
+        <div class="service-item reveal"><div class="service-icon">📈</div><h3>Growth & CRM</h3><p>Automatización, email marketing, lifecycle campaigns y retención.</p><span class="service-meta">LTV+ →</span></div>
+        <div class="service-item reveal"><div class="service-icon">⚙️</div><h3>Marketing Technology</h3><p>Integración de herramientas, data lakes, dashboards y reporting avanzado.</p><span class="service-meta">tech stack →</span></div>
+        <div class="service-item reveal"><div class="service-icon">🎨</div><h3>Contenido & Creative Ops</h3><p>Producción de activos optimizados para conversión y consistencia de marca.</p><span class="service-meta">creative →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proyectos / casos concretos -->
+  <section id="proyectos">
+    <div class="container">
+      <div class="section-tag reveal">— CASOS DE ÉXITO</div>
+      <h2 class="section-title reveal">Resultados que hablan</h2>
+      <div class="projects-grid">
+        <div class="project-card reveal"><div class="project-img" style="background: #eef2fa;">📈 +214% tráfico orgánico</div><div class="project-info"><div class="project-cat">SEO & Contenido</div><div class="project-title">Fintech Nova</div><p class="project-desc">Estrategia de contenido data-driven que duplicó posiciones clave en 6 meses.</p></div></div>
+        <div class="project-card reveal"><div class="project-img" style="background: #eef2fa;">🎯 ROAS 5.2x</div><div class="project-info"><div class="project-cat">Performance Ads</div><div class="project-title">D2C · Oleo Cosmetics</div><p class="project-desc">Reducción del 38% en CPA mediante segmentación avanzada y creatividades dinámicas.</p></div></div>
+        <div class="project-card reveal"><div class="project-img" style="background: #eef2fa;">📊 +67% retención</div><div class="project-info"><div class="project-cat">CRM & Lifecycle</div><div class="project-title">Educativa Aprende+</div><p class="project-desc">Automatización de flujos de email y personalización que mejoró la recurrencia.</p></div></div>
+        <div class="project-card reveal"><div class="project-img" style="background: #eef2fa;">🏷️ Brand lift +32%</div><div class="project-info"><div class="project-cat">Branding + Awareness</div><div class="project-title">Bebida MORA</div><p class="project-desc">Relanzamiento con enfoque en notoriedad y penetración de mercado en 3 meses.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso -->
+  <section id="proceso" style="background: var(--surface);">
+    <div class="container">
+      <div class="section-tag reveal">— METODOLOGÍA</div>
+      <h2 class="section-title reveal">De los datos a la ejecución</h2>
+      <div class="process-grid">
+        <div class="process-steps">
+          <div class="step reveal"><div class="step-number">1</div><div class="step-text"><h4>Auditoría y descubrimiento</h4><p>Analizamos el mercado, competencia, datos históricos y oportunidades de crecimiento.</p></div></div>
+          <div class="step reveal"><div class="step-number">2</div><div class="step-text"><h4>Estrategia & hoja de ruta</h4><p>Definimos objetivos, canales, presupuestos y KPIs medibles con visión de negocio.</p></div></div>
+          <div class="step reveal"><div class="step-number">3</div><div class="step-text"><h4>Implementación & optimización</h4><p>Ejecución ágil con ciclos de mejora continua y tests A/B constantes.</p></div></div>
+          <div class="step reveal"><div class="step-number">4</div><div class="step-text"><h4>Reporting & escalado</h4><p>Dashboards transparentes, insights accionables y roadmap para siguiente fase.</p></div></div>
+        </div>
+        <div class="reveal" style="background: white; border-radius: 24px; padding: 2rem; border: 1px solid var(--border);">
+          <h3 style="margin-bottom: 1rem;">Nuestro compromiso</h3>
+          <p style="margin-bottom: 1rem; color: var(--ink-muted);">No trabajamos con métricas vanidad. Cada acción está vinculada a resultados de negocio reales: ventas, leads cualificados o retención.</p>
+          <div style="height: 4px; width: 60px; background: var(--accent); margin: 1.5rem 0 0;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-grid reveal">
+        <div>
+          <div class="section-tag" style="margin-bottom: 0.5rem;">— COMIENZA HOY</div>
+          <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">¿Listo para escalar?</h2>
+          <p style="color: var(--ink-muted); margin-bottom: 1.5rem;">Cuéntanos tu reto. En 24h te enviamos una propuesta de diagnóstico sin compromiso.</p>
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+            <a href="#" style="font-weight: 500;">hello@estrato.agency →</a>
+            <a href="#" style="color: var(--ink-muted);">LinkedIn</a>
+            <a href="#" style="color: var(--ink-muted);">Instagram</a>
+          </div>
+        </div>
+        <form id="contactForm" action="#" method="post">
+          <div class="form-group"><input type="text" placeholder="Nombre completo" required></div>
+          <div class="form-group"><input type="email" placeholder="Correo profesional" required></div>
+          <div class="form-group"><input type="text" placeholder="Empresa / Web"></div>
+          <div class="form-group"><textarea placeholder="¿En qué podemos ayudarte?"></textarea></div>
+          <button type="button" class="btn-submit" id="submitBtn">Enviar mensaje →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div><a href="#" class="logo" style="font-size: 1.4rem;">ESTRATO</a><p style="font-size:0.75rem; margin-top:0.5rem;">marketing con evidencia</p></div>
+    <div class="footer-col"><h4>Navegación</h4><a href="#about">Enfoque</a><a href="#servicios">Servicios</a><a href="#proyectos">Casos</a><a href="#proceso">Método</a></div>
+    <div class="footer-col"><h4>Contacto</h4><a href="#">hello@estrato.agency</a><a href="#">+34 911 234 567</a><a href="#">Barcelona / Madrid</a></div>
+  </div>
+  <div class="copyright">© 2025 ESTRATO — Agencia de Marketing Estratégico. Todos los derechos reservados.</div>
+</footer>
+
+<script>
+  // NAV SCROLL EFFECT
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+
+  // REVEAL ON SCROLL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // COUNTER ANIMATION (datos estadísticos)
+  const counters = document.querySelectorAll('.stat-number');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 45;
+        const updateCounter = () => {
+          current += increment;
+          if (current < target) {
+            if (target % 1 !== 0) el.innerText = current.toFixed(1);
+            else el.innerText = Math.floor(current);
+            requestAnimationFrame(updateCounter);
+          } else {
+            el.innerText = target % 1 !== 0 ? target.toFixed(1) : Math.floor(target);
+          }
+        };
+        updateCounter();
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => counterObserver.observe(c));
+
+  // SIMPLE FORM FEEDBACK
+  const submitBtn = document.getElementById('submitBtn');
+  if(submitBtn) {
+    submitBtn.addEventListener('click', function(e) {
+      const btn = this;
+      const originalText = btn.innerText;
+      btn.innerText = '✓ Mensaje enviado';
+      btn.style.background = '#1a5f6e';
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.style.background = '#0a0c10';
+      }, 2500);
+      // Aquí podrías añadir lógica real de envío con fetch
+    });
+  }
+
+  // Smooth scroll para links internos
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if(targetId === "#" || targetId === "") return;
+      const targetEl = document.querySelector(targetId);
+      if(targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

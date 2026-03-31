@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos Aeterna · El reloj que define tu legado</title>
+    
+    <!-- Fuentes elegantes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos sutiles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Barra de navegación mínima */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
+            backdrop-filter: blur(4px);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: #b89b5e;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .nav-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 300;
+        }
+
+        .nav-links a:hover {
+            color: #b89b5e;
+        }
+
+        /* Hero: imagen de fondo con el reloj */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://placehold.co/2000x1500/1a1a1a/b89b5e?text=Reloj+Ultra+Lujo') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: #b89b5e;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .hero-title span {
+            font-weight: 700;
+            color: #b89b5e;
+            display: block;
+            font-size: 6rem;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid #b89b5e;
+            color: #b89b5e;
+            padding: 15px 50px;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .btn:hover {
+            background: #b89b5e;
+            color: #0a0a0a;
+        }
+
+        /* Sección: La esencia */
+        .essence {
+            padding: 120px 0;
+            background: #0a0a0a;
+            border-bottom: 1px solid rgba(184,155,94,0.2);
+        }
+
+        .essence-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .essence-text h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .essence-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 1px;
+            background: #b89b5e;
+        }
+
+        .essence-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .essence-image {
+            width: 100%;
+            height: 600px;
+            background: url('https://placehold.co/1200x1600/1a1a1a/b89b5e?text=Reloj+Perfil') center/cover no-repeat;
+            border: 1px solid rgba(184,155,94,0.3);
+        }
+
+        /* Sección: Detalles de artesanía */
+        .craftsmanship {
+            padding: 120px 0;
+            background: #0f0f0f;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #b89b5e;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 80px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .detail-card {
+            text-align: center;
+            padding: 40px 20px;
+            border: 1px solid rgba(184,155,94,0.15);
+            transition: all 0.4s;
+        }
+
+        .detail-card:hover {
+            border-color: #b89b5e;
+            transform: translateY(-10px);
+        }
+
+        .detail-icon {
+            font-size: 3rem;
+            color: #b89b5e;
+            margin-bottom: 30px;
+        }
+
+        .detail-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .detail-card p {
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        /* Sección: Por qué usarlo (estatus, legado) */
+        .status {
+            padding: 120px 0;
+            background: #0a0a0a;
+            border-bottom: 1px solid rgba(184,155,94,0.2);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .status-image {
+            width: 100%;
+            height: 700px;
+            background: url('https://placehold.co/1200x1800/1a1a1a/b89b5e?text=Reloj+Muñeca') center/cover no-repeat;
+            border: 1px solid rgba(184,155,94,0.3);
+        }
+
+        .status-text h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .status-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 1px;
+            background: #b89b5e;
+        }
+
+        .status-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.5rem;
+            color: #b89b5e;
+            margin: 40px 0;
+            padding-left: 20px;
+            border-left: 2px solid #b89b5e;
+        }
+
+        /* Sección edición limitada - ahora con llamada directa */
+        .limited {
+            padding: 100px 0;
+            text-align: center;
+            background: #0f0f0f;
+        }
+
+        .limited h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .limited .number {
+            font-size: 8rem;
+            font-weight: 700;
+            color: #b89b5e;
+            line-height: 1;
+            margin: 30px 0;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .limited p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.8;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #b89b5e;
+            margin: 30px 0;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(184,155,94,0.2);
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .social {
+            margin-top: 30px;
+        }
+
+        .social a {
+            color: #b89b5e;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .social a:hover {
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .essence-grid, .status-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-title span {
+                font-size: 4rem;
+            }
+            nav {
+                padding: 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Chronos Aeterna</div>
+        <div class="nav-links">
+            <a href="#essence">Esencia</a>
+            <a href="#craftsmanship">Artesanía</a>
+            <a href="#status">Legado</a>
+            <a href="#limited">Edición</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-subtitle">Edición Limitada · 50 piezas</div>
+            <h1 class="hero-title">El tiempo tiene<br>una nueva forma<span>Chronos Aeterna</span></h1>
+            <p class="hero-desc">No es un reloj. Es la firma de quienes han llegado. Un objeto que trasciende generaciones, forjado en metales preciosos y la paciencia de artesanos suizos.</p>
+            <a href="#limited" class="btn">Descubrir la obra</a>
+        </div>
+    </section>
+
+    <!-- La esencia -->
+    <section class="essence" id="essence">
+        <div class="container essence-grid">
+            <div class="essence-text">
+                <h2>La esencia de la exclusividad</h2>
+                <p>En un mundo donde lo efímero reina, Chronos Aeterna se erige como un bastión de lo eterno. Cada pieza requiere 18 meses de trabajo, ensamblada a mano por un solo maestro relojero. El oro blanco de 18 quilates se funde con el platino, y el zafiro se talla para revelar el corazón mecánico.</p>
+                <p>Llevar este reloj no es una cuestión de hora; es una declaración silenciosa de que usted pertenece a un círculo donde el tiempo es el lujo más preciado. Los materiales son seleccionados por su rareza: diamantes de talla baguette de origen ético, esferas de meteorito, correas de aligátor de cría controlada.</p>
+                <div class="quote">"No se posee un Chronos Aeterna; se le custodia para la próxima generación."</div>
+            </div>
+            <div class="essence-image"></div>
+        </div>
+    </section>
+
+    <!-- Artesanía / Características -->
+    <section class="craftsmanship" id="craftsmanship">
+        <div class="container">
+            <h2 class="section-title">La perfección hecha movimiento</h2>
+            <div class="section-subtitle">Detalles que marcan la diferencia</div>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-cog"></i></div>
+                    <h3>Calibre Manual</h3>
+                    <p>Movimiento de cuerda manual con reserva de marcha de 8 días. 462 componentes, todos decorados a mano con Côtes de Genève.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-gem"></i></div>
+                    <h3>Rubíes naturales</h3>
+                    <p>33 rubíes sintéticos utilizados como cojinetes, engastados en chatones de oro pulido. Garantía de suavidad y durabilidad.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Tourbillon volante</h3>
+                    <p>Complicación visible a través del fondo de zafiro. Una danza hipnótica que compensa la gravedad y asegura la precisión.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-water"></i></div>
+                    <h3>Hermeticidad extrema</h3>
+                    <p>Caja atornillada con junta de triple seguridad. Sumergible hasta 100 metros, aunque su lugar natural es la luz de un yate.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-meteor"></i></div>
+                    <h3>Esfera de meteorito</h3>
+                    <p>Cortada de un meteorito de 4.500 millones de años. Cada esfera tiene un patrón Widmanstätten único e irrepetible.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon"><i class="fas fa-crown"></i></div>
+                    <h3>Corona de platino</h3>
+                    <p>Corona con doble junta tórica y embellecedor de diamante talla rosa. Acción sedosa al dar cuerda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Por qué usarlo (estatus) -->
+    <section class="status" id="status">
+        <div class="container status-grid">
+            <div class="status-image"></div>
+            <div class="status-text">
+                <h2>Un símbolo, no un accesorio</h2>
+                <p>Vestir un Chronos Aeterna es presentarse al mundo sin decir una palabra. Es el eco de una tradición familiar, el gusto por lo bello, el respeto por la historia. Sus abuelos entendían el valor de lo perdurable; usted lo perpetúa.</p>
+                <p>En una época de desechables, este reloj se convierte en su legado. No hay mejor manera de enseñar a sus hijos que el tiempo es valioso que legándoles una máquina que lo mide con la belleza de un poema.</p>
+                <div class="quote">"Quienes entienden, no preguntan. Quienes no entienden, no merecen respuesta."</div>
+                <a href="#limited" class="btn" style="margin-top: 30px;">Conocer la pieza</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edición limitada - sin invitación -->
+    <section class="limited" id="limited">
+        <div class="container">
+            <h2>Edición Limitada</h2>
+            <div class="section-subtitle">Solo 50 ejemplares en el mundo</div>
+            <div class="number">50</div>
+            <p>Cada reloj está numerado y registrado en el libro de honor de la casa. Incluye un estuche de caoba pulida, un certificado de autenticidad firmado por el maestro relojero y una invitación a las instalaciones en Ginebra.</p>
+            <div class="price">248.000 CHF</div>
+            <a href="#" class="btn">Solicitar información</a>
+            <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.5;">*Las consultas se atienden de forma personalizada.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="margin-bottom: 20px;">Chronos Aeterna</div>
+        <p>Ginebra · Suiza · Desde 1842</p>
+        <p>info@chronosaeterna.com · +41 22 123 45 67</p>
+        <div class="social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p style="margin-top: 40px;">© 2025 Chronos Aeterna. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

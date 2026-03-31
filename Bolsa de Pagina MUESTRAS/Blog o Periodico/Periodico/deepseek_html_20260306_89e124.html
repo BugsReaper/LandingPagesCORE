@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Chronicle · Edición formal</title>
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Lora:wght@400;600&family=Merriweather:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET Y VARIABLES (TOKENS) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --fondo: #FDFBF7;
+            --texto-principal: #1E1E1E;
+            --texto-secundario: #4A4A4A;
+            --texto-terciario: #6B6B6B;
+            --acento: #7FB4D5;
+            --acento-hover: #4A7A9C;
+            --borde: #E8E6E1;
+            --sombra-card: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --sombra-card-hover: 0 8px 16px rgba(0, 0, 0, 0.08);
+            --transition: all 0.2s ease-in-out;
+            --espaciado-base: 8px;
+            --max-lectura: 720px;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Merriweather', Georgia, serif;
+            line-height: 1.6;
+            padding: 0 1rem;
+        }
+
+        /* tipografía de títulos */
+        h1, h2, h3, h4, .logo, .categoria {
+            font-family: 'Lora', Georgia, serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* metadatos, botones, navegación */
+        .meta, nav, .sidebar-widget h4, button, .btn, .fecha, .autor, .pagination {
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* --- ANIMACIÓN DE ENTRADA GLOBAL (fade-up) --- */
+        .fade-in {
+            animation: fadeUp 0.4s ease-in-out forwards;
+            opacity: 0; /* partimos invisible */
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(5px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* retrasos para cascada */
+        .header { animation-delay: 0.1s; }
+        .main-content { animation-delay: 0.2s; }
+        .sidebar { animation-delay: 0.3s; }
+        .footer { animation-delay: 0.4s; }
+
+        /* --- HEADER (sticky) --- */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid var(--borde);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            z-index: 10;
+            transition: box-shadow 0.2s;
+        }
+        header.scrolled {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: var(--texto-principal);
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            position: relative;
+            padding: 0.25rem 0;
+        }
+
+        /* subrayado animado (desde centro) */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0%;
+            height: 2px;
+            background-color: var(--acento);
+            transition: width 0.2s ease-in-out, left 0.2s ease-in-out;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .busqueda {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #search-icon {
+            cursor: pointer;
+            font-size: 1.2rem;
+            user-select: none;
+            transition: transform 0.2s;
+        }
+        #search-icon:hover {
+            transform: scale(1.1);
+            color: var(--acento);
+        }
+
+        .search-input {
+            width: 0;
+            opacity: 0;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--borde);
+            border-radius: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            background-color: white;
+            transition: width 0.3s ease-in-out, opacity 0.2s;
+            pointer-events: none;
+        }
+        .search-input.active {
+            width: 200px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .fecha-edicion {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--texto-terciario);
+            border-top: 1px solid var(--borde);
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- LAYOUT PRINCIPAL (grid) --- */
+        .layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        /* --- CARDS DE ARTÍCULOS (formales) --- */
+        .article-card {
+            background-color: transparent;
+            border-bottom: 1px solid var(--borde);
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-card-hover);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: grayscale(30%) sepia(5%);
+            margin-bottom: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .article-card:hover .card-img {
+            transform: scale(1.02);
+        }
+
+        .categoria {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--acento);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .article-card h3 {
+            font-size: 1.6rem;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta {
+            color: var(--texto-secundario);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .extracto {
+            color: var(--texto-terciario);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .leer-mas {
+            color: var(--acento);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            transition: gap 0.2s;
+        }
+        .leer-mas:hover {
+            color: var(--acento-hover);
+            gap: 0.5rem;
+        }
+
+        /* --- ARTÍCULO COMPLETO (ejemplo dentro de main) --- */
+        .full-article {
+            max-width: var(--max-lectura);
+        }
+        .full-article h1 {
+            font-size: 2.4rem;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        .full-article .bajada {
+            font-size: 1.2rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1rem;
+        }
+        .full-article .meta {
+            margin-bottom: 2rem;
+        }
+        .full-article img {
+            width: 100%;
+            height: auto;
+            margin: 1.5rem 0;
+            filter: grayscale(20%);
+        }
+        .full-article .pie-foto {
+            font-size: 0.8rem;
+            color: var(--texto-terciario);
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+        }
+        .full-article p {
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+        }
+        .full-article h2 {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1rem;
+        }
+        .full-article blockquote {
+            margin: 2rem 0 2rem 0;
+            padding-left: 2rem;
+            border-left: 4px solid var(--acento);
+            font-style: italic;
+            color: var(--texto-secundario);
+        }
+        .full-article a {
+            color: var(--acento);
+            position: relative;
+            /* subrayado animado en links del texto */
+            display: inline-block;
+        }
+        .full-article a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0%;
+            height: 1px;
+            background: var(--acento-hover);
+            transition: width 0.2s ease, left 0.2s ease;
+        }
+        .full-article a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .compartir {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding-top: 1rem;
+            border-top: 1px solid var(--borde);
+        }
+        .compartir a {
+            color: var(--texto-secundario);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .compartir a:hover {
+            color: var(--acento);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .sidebar-widget {
+            border-top: 2px solid var(--borde);
+            padding-top: 1.2rem;
+        }
+        .sidebar-widget h4 {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--texto-secundario);
+        }
+
+        .popular-list {
+            list-style: none;
+        }
+        .popular-list li {
+            counter-increment: popular;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+        .popular-list li::before {
+            content: counter(popular);
+            color: var(--acento);
+            font-weight: 600;
+            font-size: 1.1rem;
+            min-width: 1.5rem;
+        }
+        .popular-list a:hover {
+            color: var(--acento);
+        }
+
+        .widget-newsletter p {
+            font-size: 0.9rem;
+            color: var(--texto-terciario);
+            margin-bottom: 1rem;
+        }
+        .newsletter-form {
+            display: flex;
+            border: 1px solid var(--borde);
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .newsletter-form button {
+            background: transparent;
+            border: none;
+            border-left: 1px solid var(--borde);
+            padding: 0 1.2rem;
+            color: var(--acento);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .newsletter-form button:hover {
+            background-color: var(--acento);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            border-top: 1px solid var(--borde);
+            padding: 2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--texto-terciario);
+            font-size: 0.85rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .footer-links a:hover {
+            color: var(--acento);
+        }
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        .social-icons a {
+            color: var(--texto-secundario);
+            font-size: 1.2rem;
+        }
+        .social-icons a:hover {
+            color: var(--acento);
+            transform: translateY(-2px);
+        }
+
+        /* responsive */
+        @media (max-width: 800px) {
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .nav-links {
+                display: none; /* en móvil se podría implementar menú hamburguesa, pero lo omitimos para mantener sencillez */
+            }
+            .header-container {
+                justify-content: space-between;
+            }
+            .search-input.active {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER (sticky con detección de scroll) -->
+<header id="main-header" class="header fade-in">
+    <div class="header-container">
+        <div class="logo">The Chronicle</div>
+        <nav class="nav-links">
+            <a href="#">Política</a>
+            <a href="#">Cultura</a>
+            <a href="#">Ciencia</a>
+            <a href="#">Opinión</a>
+        </nav>
+        <div class="busqueda">
+            <span id="search-icon">🔍</span>
+            <input type="text" id="search-field" class="search-input" placeholder="Buscar...">
+        </div>
+    </div>
+    <div class="fecha-edicion">
+        <span>Martes, 15 Abril 2026</span>
+        <span>Edición: Digital</span>
+    </div>
+</header>
+
+<!-- LAYOUT PRINCIPAL (grid 2fr 1fr) -->
+<div class="layout">
+    <!-- MAIN CONTENT (artículos) -->
+    <main class="main-content fade-in">
+        <!-- ARTÍCULO COMPLETO DE EJEMPLO (simula la página interna) -->
+        <article class="full-article">
+            <h1>El silencio de los archivos: cómo la digitalización cambia la historia</h1>
+            <div class="bajada">Los historiadores advierten que la preservación digital es más frágil que el papel.</div>
+            <div class="meta">Por <span class="autor">María González</span> · 15 Abr 2026 · 8 min lectura</div>
+            <img src="https://placecats.com/1200/600" alt="Archivo antiguo" style="width:100%;">
+            <div class="pie-foto">Fotografía: Archivo Nacional, 1923.</div>
+
+            <p>La digitalización prometía democratizar el acceso a la memoria escrita. Sin embargo, un creciente número de archiveros alerta de que los formatos digitales pueden volverse ilegibles en pocas décadas, mientras que el papel bien conservado dura siglos.</p>
+            <p>El caso más reciente ocurrió en la biblioteca de <a href="#">Simancas</a>, donde miles de documentos escaneados en los años 90 ahora están corruptos. "Es como si hubiéramos quemado libros", afirma la directora del centro.</p>
+            <h2>El mito del "preservar para siempre"</h2>
+            <p>Los soportes magnéticos y ópticos tienen una vida útil limitada. Los CD-R no duran más de 20 años en condiciones óptimas. Los discos duros fallan. Y el software para abrir ciertos formatos desaparece.</p>
+            <blockquote>
+                "La única forma segura de conservar información es la redundancia: papel, copias digitales actualizadas y, sobre todo, lectores humanos que mantengan vivo el conocimiento."
+            </blockquote>
+            <p>Mientras tanto, iniciativas como <a href="#">Internet Archive</a> luchan contra el reloj. Pero sin políticas públicas, el próximo apagón digital podría borrar décadas de cultura.</p>
+
+            <div class="compartir">
+                <a href="#">𝕏 Twitter</a>
+                <a href="#">📘 Facebook</a>
+                <a href="#">🔗 Copiar enlace</a>
+            </div>
+        </article>
+
+        <!-- TARJETA DE ARTÍCULO (para vista previa de otro post) -->
+        <div class="article-card">
+            <img src="https://placecats.com/800/400" alt="Imagen abstracta" class="card-img">
+            <span class="categoria">Ciencia</span>
+            <h3>Los secretos del papiro: nueva luz sobre la medicina egipcia</h3>
+            <div class="meta">Por Carlos Ruiz · 14 Abr 2026</div>
+            <p class="extracto">Un papiro hallado en Luxor revela conocimientos quirúrgicos avanzados para la época. Los expertos lo consideran el hallazgo más importante desde la piedra Rosetta.</p>
+            <a href="#" class="leer-mas">Leer más →</a>
+        </div>
+
+        <div class="article-card">
+            <img src="https://placecats.com/801/401" alt="Imagen de cultura" class="card-img">
+            <span class="categoria">Cultura</span>
+            <h3>El teatro pospandemia: la vuelta a los clásicos</h3>
+            <div class="meta">Por Laura Martí · 13 Abr 2026</div>
+            <p class="extracto">Las salas de todo el país reportan un aumento de público joven interesado en obras de Lorca y Shakespeare. ¿Qué buscan en el pasado?</p>
+            <a href="#" class="leer-mas">Leer más →</a>
+        </div>
+
+        <!-- PAGINACIÓN SIMULADA -->
+        <div class="pagination" style="margin: 2rem 0; display: flex; gap:1rem; font-family: 'Inter'">
+            <a href="#" style="color:var(--acento)">← Anterior</a>
+            <a href="#" style="color:var(--texto-terciario)">1</a>
+            <a href="#" style="color:var(--acento)">2</a>
+            <a href="#" style="color:var(--texto-terciario)">3</a>
+            <a href="#" style="color:var(--acento)">Siguiente →</a>
+        </div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar fade-in">
+        <div class="sidebar-widget">
+            <h4>Lo más leído</h4>
+            <ul class="popular-list" style="counter-reset: popular;">
+                <li><a href="#">El archivo perdido de la guerra civil</a></li>
+                <li><a href="#">Entrevista con la poeta que rechazó el premio</a></li>
+                <li><a href="#">Mapas antiguos que cambiaron fronteras</a></li>
+                <li><a href="#">La biblioteca de Alejandría versión digital</a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-widget widget-newsletter">
+            <h4>Newsletter</h4>
+            <p>Análisis semanal en tu correo, sin spam.</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Tu email">
+                <button>Suscribirse</button>
+            </div>
+        </div>
+
+        <!-- PODRÍA HABER MÁS WIDGETS, POR EJEMPLO PUBLICIDAD O UN MINI ENSAYO -->
+        <div class="sidebar-widget">
+            <h4>Opinión destacada</h4>
+            <p style="font-style: italic; color: var(--texto-secundario);">"Preservar lo efímero: el reto del siglo XXI"</p>
+            <p style="font-size:0.8rem;">— Ana Beltrán</p>
+        </div>
+    </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer fade-in">
+    <div class="footer-links">
+        <a href="#">Mapa del sitio</a>
+        <a href="#">Aviso Legal</a>
+        <a href="#">Política de cookies</a>
+        <a href="#">Contacto</a>
+    </div>
+    <div>© 2026 The Chronicle</div>
+    <div class="social-icons">
+        <a href="#">📡</a>
+        <a href="#">𝕏</a>
+        <a href="#">🔗</a>
+    </div>
+</footer>
+
+<!-- SCRIPTS (interacciones suaves) -->
+<script>
+    (function() {
+        // 1. STICKY HEADER: añade clase 'scrolled' al hacer scroll
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. BUSCADOR: despliegue animado del input
+        const searchIcon = document.getElementById('search-icon');
+        const searchField = document.getElementById('search-field');
+        searchIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            searchField.classList.toggle('active');
+            if (searchField.classList.contains('active')) {
+                searchField.focus();
+            }
+        });
+        // Cerrar si se hace clic fuera (opcional, mejora usabilidad)
+        document.addEventListener('click', (e) => {
+            if (!searchIcon.contains(e.target) && !searchField.contains(e.target)) {
+                searchField.classList.remove('active');
+            }
+        });
+
+        // 3. PEQUEÑA ANIMACIÓN ADICIONAL: los enlaces de "Leer más" ya tienen CSS, pero podemos añadir algo de consola silenciosa
+        // También se podría usar para lazy loading en un futuro, pero no necesario ahora.
+        console.log('The Chronicle — versión formal cargada con animaciones suaves.');
+    })();
+</script>
+<!-- Nota: Las imágenes son de placeholder (placecats.com). Cámbialas por tus propias imágenes. -->
+</body>
+</html>

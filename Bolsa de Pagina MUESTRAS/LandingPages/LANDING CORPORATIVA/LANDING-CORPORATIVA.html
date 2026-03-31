@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Empresarial | Estrategia y Gestión Corporativa</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Meta tags profesionales para LinkedIn -->
+    <meta property="og:title" content="Grupo Empresarial | Asesoría Estratégica para Grandes Corporaciones">
+    <meta property="og:description" content="Consultoría de élite en fusiones, adquisiciones y expansión internacional. 25 años de trayectoria.">
+    <meta property="og:type" content="website">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Configuración de color -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0a1a2f',    // Azul marino profundo (poder)
+                        secondary: '#2c3e50',   // Gris azulado (autoridad)
+                        accent: '#8b9aa8',      // Gris acero (neutralidad)
+                        dark: '#1e2a36',        // Casi negro
+                        gold: '#c6a15b',         // Acento dorado sutil (lujo)
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Animaciones ultra sutiles */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        
+        /* Efectos de lujo silencioso */
+        .corporate-card {
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .corporate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c6a15b, transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .corporate-card:hover::before {
+            left: 100%;
+        }
+        
+        .corporate-card:hover {
+            border-color: #c6a15b20;
+            box-shadow: 0 20px 30px -15px rgba(10, 26, 47, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Botones con elegancia */
+        .btn-primary {
+            background: #0a1a2f;
+            color: white;
+            padding: 0.875rem 2.5rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-primary:hover {
+            background: #1e2a36;
+        }
+        
+        .btn-outline {
+            border: 1px solid #0a1a2f;
+            color: #0a1a2f;
+            padding: 0.875rem 2.5rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: transparent;
+            display: inline-block;
+        }
+        
+        .btn-outline:hover {
+            background: #0a1a2f;
+            color: white;
+        }
+        
+        /* Estadísticas con estilo */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #0a1a2f;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .stat-number::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background: #c6a15b;
+        }
+        
+        /* Tooltips elegantes */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0a1a2f;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+        
+        .tooltip:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #0a1a2f transparent transparent transparent;
+            margin-bottom: 0;
+        }
+        
+        /* Navbar con vidrio esmerilado */
+        nav {
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+        
+        /* Línea de tiempo corporativa */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c6a15b;
+            opacity: 0.5;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(to bottom, #c6a15b40, transparent);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Barra de progreso de lectura */
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #c6a15b, #0a1a2f);
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
+        
+        /* Sello de calidad */
+        .certification-badge {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            height: 2.5rem;
+        }
+        
+        .certification-badge:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        
+        /* Efecto sutil en títulos */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #c6a15b;
+        }
+        
+        /* Pulse para marcadores de mapa */
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #0a1a2f;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .pulse-dot::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid #c6a15b;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
+        /* Vertical text para legal */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: -0.5em;
+            font-size: 0.7rem;
+            color: #8b9aa8;
+        }
+        
+        .vertical-text a {
+            transition: color 0.3s ease;
+        }
+        
+        .vertical-text a:hover {
+            color: #0a1a2f;
+        }
+        
+        /* Validación de formulario */
+        .field-valid {
+            border-color: #10b981 !important;
+        }
+        
+        .field-invalid {
+            border-color: #ef4444 !important;
+        }
+        
+        /* Modo impresión profesional */
+        @media print {
+            nav, footer, .btn-primary, .btn-outline, .vertical-text, #reading-progress {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+                color: black;
+                font-size: 11pt;
+                padding: 1cm;
+            }
+            
+            a::after {
+                content: " (" attr(href) ")";
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+        
+        /* Scrollbar elegante (para los que usan escritorio) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #8b9aa8;
+            transition: all 0.3s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0a1a2f;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans antialiased text-gray-900">
+    
+    <!-- Barra de progreso de lectura -->
+    <div id="reading-progress" style="width: 0%;"></div>
+    
+    <!-- Acceso rápido a documentos legales (vertical) -->
+    <div class="fixed left-4 top-1/3 transform -translate-y-1/2 hidden lg:block z-40">
+        <div class="vertical-text space-y-6">
+            <a href="#" class="block hover:text-primary transition">COMPLIANCE</a>
+            <a href="#" class="block hover:text-primary transition">PRIVACIDAD</a>
+            <a href="#" class="block hover:text-primary transition">TÉRMINOS</a>
+        </div>
+    </div>
+    
+    <!-- NAVBAR - Versión élite -->
+    <nav class="fixed w-full bg-white z-50" id="main-nav">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo con distinción -->
+                <div class="flex-shrink-0">
+                    <span class="text-2xl font-light tracking-tight text-primary">GRUPO</span>
+                    <span class="text-2xl font-bold text-primary">EMPRESARIAL</span>
+                    <span class="block text-[0.6rem] tracking-[0.3em] text-accent mt-1">ESTRATEGIA CORPORATIVA</span>
+                </div>
+                
+                <!-- Menú principal -->
+                <div class="hidden md:flex space-x-12">
+                    <a href="#inicio" class="text-dark hover:text-primary text-sm font-medium uppercase tracking-wider transition relative group">
+                        Inicio
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#servicios" class="text-dark hover:text-primary text-sm font-medium uppercase tracking-wider transition relative group">
+                        Servicios
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#nosotros" class="text-dark hover:text-primary text-sm font-medium uppercase tracking-wider transition relative group">
+                        La Firma
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#testimonios" class="text-dark hover:text-primary text-sm font-medium uppercase tracking-wider transition relative group">
+                        Casos
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#contacto" class="text-dark hover:text-primary text-sm font-medium uppercase tracking-wider transition relative group">
+                        Contacto
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+                
+                <!-- Botón de contacto + idioma -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <!-- Selector de idioma elegante -->
+                    <div class="relative group">
+                        <button class="flex items-center text-sm text-gray-600 hover:text-primary">
+                            <span>ES</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-24 bg-white border border-gray-200 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">EN</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">FR</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">DE</a>
+                        </div>
+                    </div>
+                    
+                    <a href="#contacto" class="btn-primary">Solicitar reunión</a>
+                </div>
+                
+                <!-- Menú móvil (necesario pero discreto) -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#inicio" class="block py-2 text-dark">Inicio</a>
+                <a href="#servicios" class="block py-2 text-dark">Servicios</a>
+                <a href="#nosotros" class="block py-2 text-dark">La Firma</a>
+                <a href="#testimonios" class="block py-2 text-dark">Casos</a>
+                <a href="#contacto" class="block py-2 text-dark">Contacto</a>
+                <div class="pt-4 space-y-3">
+                    <a href="#contacto" class="btn-primary w-full text-center">Solicitar reunión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- HERO - Poderoso y sereno -->
+    <section id="inicio" class="pt-36 pb-28 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-in">
+                    <p class="text-accent text-sm font-medium uppercase tracking-[0.2em] mb-4">Soluciones Corporativas</p>
+                    <h1 class="text-5xl md:text-6xl text-primary font-light leading-tight">
+                        Gestión de<br>
+                        <span class="font-semibold">Activos Estratégicos</span>
+                    </h1>
+                    <p class="text-gray-600 text-lg mt-6 leading-relaxed max-w-lg">
+                        Asesoramos a grandes corporaciones en la optimización de recursos, 
+                        fusiones estratégicas y expansión internacional.
+                    </p>
+                    
+                    <!-- PDF descargable (simulado) -->
+                    <div class="mt-8 flex items-center space-x-8">
+                        <a href="#contacto" class="btn-primary">Análisis preliminar</a>
+                        <a href="#" class="inline-flex items-center text-sm text-primary hover:underline group">
+                            <i class="far fa-file-pdf mr-2 text-gold"></i>
+                            Dossier corporativo
+                            <span class="ml-2 text-xs text-gray-400 group-hover:text-primary">(PDF, 2.4 MB)</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Imagen corporativa con mapa de presencia -->
+                <div class="fade-in delay-1 relative">
+                    <div class="bg-gray-50 h-96 flex items-center justify-center border border-gray-200 relative overflow-hidden">
+                        <i class="fas fa-globe text-8xl text-accent/20"></i>
+                        
+                        <!-- Marcadores de presencia (decorativos) -->
+                        <div class="absolute top-1/4 left-1/3">
+                            <div class="pulse-dot"></div>
+                        </div>
+                        <div class="absolute top-1/2 left-2/3">
+                            <div class="pulse-dot"></div>
+                        </div>
+                        <div class="absolute top-2/3 left-1/4">
+                            <div class="pulse-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Certificaciones -->
+                    <div class="flex justify-end mt-4 space-x-4">
+                        <span class="certification-badge inline-block w-12 h-12 bg-gray-200" title="ISO 9001"></span>
+                        <span class="certification-badge inline-block w-12 h-12 bg-gray-200" title="ISO 27001"></span>
+                        <span class="certification-badge inline-block w-12 h-12 bg-gray-200" title="Great Place to Work"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MÉTRICAS CON TOOLTIPS -->
+    <div class="border-y border-gray-200 bg-gray-50/30">
+        <div class="max-w-7xl mx-auto px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <span class="stat-number tooltip" data-tooltip="Desde 1998 en el mercado">25+</span>
+                    <p class="text-sm text-gray-500 uppercase tracking-wider mt-4">Años</p>
+                </div>
+                <div class="text-center">
+                    <span class="stat-number tooltip" data-tooltip="Empresas del IBEX35 y multinacionales">150+</span>
+                    <p class="text-sm text-gray-500 uppercase tracking-wider mt-4">Clientes</p>
+                </div>
+                <div class="text-center">
+                    <span class="stat-number tooltip" data-tooltip="Senior partners con +15 años de experiencia">40+</span>
+                    <p class="text-sm text-gray-500 uppercase tracking-wider mt-4">Expertos</p>
+                </div>
+                <div class="text-center">
+                    <span class="stat-number tooltip" data-tooltip="Oficinas propias en 4 continentes">12</span>
+                    <p class="text-sm text-gray-500 uppercase tracking-wider mt-4">Países</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SERVICIOS - Tarjetas con detalle dorado -->
+    <section id="servicios" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="max-w-2xl mb-16 fade-in">
+                <p class="text-accent text-sm font-medium uppercase tracking-[0.2em] mb-3">Nuestras Capacidades</p>
+                <h2 class="section-title text-4xl text-primary font-light">
+                    Servicios de Asesoría<br>
+                    <span class="font-semibold">Estratégica</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Servicio 1 -->
+                <div class="corporate-card p-10 fade-in">
+                    <p class="text-gold font-light text-sm mb-2">01 —</p>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">Fusiones y Adquisiciones</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Asesoramiento integral en procesos de M&A, due diligence y 
+                        valoración de activos para transacciones superiores a 50M€.
+                    </p>
+                    <a href="#" class="text-sm text-primary hover:text-gold transition inline-flex items-center">
+                        Más información <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+                
+                <!-- Servicio 2 -->
+                <div class="corporate-card p-10 fade-in delay-1">
+                    <p class="text-gold font-light text-sm mb-2">02 —</p>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">Reestructuración Operativa</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Optimización de procesos, reducción de costes y mejora de 
+                        eficiencia en organizaciones complejas.
+                    </p>
+                    <a href="#" class="text-sm text-primary hover:text-gold transition inline-flex items-center">
+                        Más información <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+                
+                <!-- Servicio 3 -->
+                <div class="corporate-card p-10 fade-in">
+                    <p class="text-gold font-light text-sm mb-2">03 —</p>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">Expansión Internacional</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Estrategias de entrada en nuevos mercados, análisis de riesgo 
+                        político y establecimiento de operaciones.
+                    </p>
+                    <a href="#" class="text-sm text-primary hover:text-gold transition inline-flex items-center">
+                        Más información <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+                
+                <!-- Servicio 4 -->
+                <div class="corporate-card p-10 fade-in delay-1">
+                    <p class="text-gold font-light text-sm mb-2">04 —</p>
+                    <h3 class="text-2xl font-semibold text-dark mb-4">Gestión de Riesgos</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Identificación, evaluación y mitigación de riesgos financieros, 
+                        operativos y regulatorios.
+                    </p>
+                    <a href="#" class="text-sm text-primary hover:text-gold transition inline-flex items-center">
+                        Más información <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- NOSOTROS con TIMELINE -->
+    <section id="nosotros" class="py-24 bg-gray-50/30">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="fade-in">
+                    <p class="text-accent text-sm font-medium uppercase tracking-[0.2em] mb-3">La Firma</p>
+                    <h2 class="section-title text-4xl text-primary font-light mb-8">
+                        Excelencia y Tradición
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        Fundada por un grupo de ejecutivos con experiencia en dirección 
+                        de empresas multinacionales, nuestra firma se ha consolidado como 
+                        un referente en asesoramiento estratégico.
+                    </p>
+                    
+                    <!-- Timeline -->
+                    <div class="mt-12 space-y-6">
+                        <div class="timeline-item">
+                            <p class="text-gold text-sm font-medium">1998</p>
+                            <p class="text-dark">Fundación en Madrid</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-gold text-sm font-medium">2005</p>
+                            <p class="text-dark">Expansión a Latinoamérica</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-gold text-sm font-medium">2012</p>
+                            <p class="text-dark">Apertura oficina en Nueva York</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-gold text-sm font-medium">2020</p>
+                            <p class="text-dark">Incorporación a la red global</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Imagen institucional -->
+                <div class="fade-in delay-1">
+                    <div class="bg-gray-100 h-96 flex items-center justify-center border border-gray-200 relative">
+                        <i class="fas fa-building text-8xl text-accent/20"></i>
+                    </div>
+                    
+                    <!-- Logos de clientes (simulados) -->
+                    <div class="grid grid-cols-3 gap-4 mt-8">
+                        <div class="h-12 bg-gray-100 opacity-50 hover:opacity-100 transition"></div>
+                        <div class="h-12 bg-gray-100 opacity-50 hover:opacity-100 transition"></div>
+                        <div class="h-12 bg-gray-100 opacity-50 hover:opacity-100 transition"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- TESTIMONIOS - Elegantes -->
+    <section id="testimonios" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="max-w-2xl mb-16 fade-in">
+                <p class="text-accent text-sm font-medium uppercase tracking-[0.2em] mb-3">Casos de Éxito</p>
+                <h2 class="section-title text-4xl text-primary font-light">
+                    Confían en Nosotros
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="corporate-card p-8 fade-in">
+                    <i class="fas fa-quote-right text-4xl text-gold/20 mb-4"></i>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Incrementamos un 34% la eficiencia operativa tras su reestructuración. 
+                        Resultados medibles en 6 meses.
+                    </p>
+                    <div>
+                        <p class="font-semibold text-dark">F.A.</p>
+                        <p class="text-sm text-gray-500">CEO, Grupo Financiero</p>
+                    </div>
+                </div>
+                
+                <!-- Testimonio 2 -->
+                <div class="corporate-card p-8 fade-in delay-1">
+                    <i class="fas fa-quote-right text-4xl text-gold/20 mb-4"></i>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Su asesoramiento en la adquisición fue impecable. Due diligence 
+                        exhaustivo y negociación exitosa.
+                    </p>
+                    <div>
+                        <p class="font-semibold text-dark">M.R.</p>
+                        <p class="text-sm text-gray-500">Directora de Estrategia</p>
+                    </div>
+                </div>
+                
+                <!-- Testimonio 3 -->
+                <div class="corporate-card p-8 fade-in delay-2">
+                    <i class="fas fa-quote-right text-4xl text-gold/20 mb-4"></i>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Llevamos 8 años trabajando juntos. Su rigor y profesionalidad 
+                        son incuestionables.
+                    </p>
+                    <div>
+                        <p class="font-semibold text-dark">J.L.</p>
+                        <p class="text-sm text-gray-500">Consejero Delegado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CONTACTO con validación -->
+    <section id="contacto" class="py-24 bg-gray-50/30">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="fade-in">
+                    <p class="text-accent text-sm font-medium uppercase tracking-[0.2em] mb-3">Contacto</p>
+                    <h2 class="section-title text-4xl text-primary font-light mb-6">
+                        Solicite una reunión
+                    </h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Atendemos exclusivamente a corporaciones e instituciones. 
+                        Todas las comunicaciones son confidenciales.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center group">
+                            <div class="w-12 text-gold">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-500">Teléfono directo</p>
+                                <p class="text-dark font-medium group-hover:text-primary transition">+34 91 234 5678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center group">
+                            <div class="w-12 text-gold">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-500">Correo corporativo</p>
+                                <p class="text-dark font-medium group-hover:text-primary transition">contacto@grupoempresarial.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center group">
+                            <div class="w-12 text-gold">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-500">Oficina central</p>
+                                <p class="text-dark font-medium group-hover:text-primary transition">Paseo de la Castellana 123, Madrid</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulario con validación -->
+                <div class="bg-white p-10 border border-gray-200 fade-in delay-1">
+                    <h3 class="text-xl font-semibold text-dark mb-6">Formulario de contacto</h3>
+                    <form id="contact-form" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre completo</label>
+                            <input type="text" id="fullname" required class="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:ring-0 outline-none transition">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Empresa</label>
+                            <input type="text" id="company" required class="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:ring-0 outline-none transition">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Cargo</label>
+                            <input type="text" id="position" required class="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:ring-0 outline-none transition">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email corporativo</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:ring-0 outline-none transition">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                            <textarea id="message" rows="4" required maxlength="500" class="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:ring-0 outline-none transition"></textarea>
+                            <div id="char-counter" class="text-xs text-gray-400 text-right mt-1">500 caracteres restantes</div>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-primary">
+                            Solicitar contacto
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER ÉLITE -->
+    <footer class="bg-primary text-white">
+        <div class="max-w-7xl mx-auto px-8 py-16">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <span class="text-2xl font-light tracking-tight">GRUPO</span>
+                    <span class="text-2xl font-bold">EMPRESARIAL</span>
+                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">
+                        Asesoramiento estratégico para grandes corporaciones.
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4 text-sm uppercase tracking-wider text-gold">La Firma</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Sobre nosotros</a></li>
+                        <li><a href="#" class="hover:text-white transition">Equipo directivo</a></li>
+                        <li><a href="#" class="hover:text-white transition">Trayectoria</a></li>
+                        <li><a href="#" class="hover:text-white transition">Oficinas</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4 text-sm uppercase tracking-wider text-gold">Servicios</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Fusiones y Adquisiciones</li>
+                        <li>Reestructuración</li>
+                        <li>Expansión Internacional</li>
+                        <li>Gestión de Riesgos</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4 text-sm uppercase tracking-wider text-gold">Legal</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Aviso legal</a></li>
+                        <li><a href="#" class="hover:text-white transition">Política de privacidad</a></li>
+                        <li><a href="#" class="hover:text-white transition">Protección de datos</a></li>
+                        <li><a href="#" class="hover:text-white transition">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2024 Grupo Empresarial. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- CTA flotante que aparece al hacer scroll -->
+    <div id="floating-cta" class="fixed bottom-8 right-8 bg-primary text-white px-6 py-4 shadow-xl transform translate-y-20 opacity-0 transition-all duration-500 z-40 hidden lg:block">
+        <a href="#contacto" class="flex items-center space-x-3">
+            <i class="far fa-calendar-check text-gold"></i>
+            <span class="text-sm font-medium tracking-wider">AGENDA REUNIÓN</span>
+        </a>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Navbar con vidrio esmerilado
+        const nav = document.getElementById('main-nav');
+        const floatingCta = document.getElementById('floating-cta');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            // Mostrar CTA flotante después de scroll
+            if (window.scrollY > 500) {
+                floatingCta.classList.remove('translate-y-20', 'opacity-0');
+                floatingCta.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                floatingCta.classList.add('translate-y-20', 'opacity-0');
+                floatingCta.classList.remove('translate-y-0', 'opacity-100');
+            }
+            
+            // Barra de progreso
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('reading-progress').style.width = scrolled + '%';
+        });
+        
+        // Menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Validación de formulario y contador
+        const messageInput = document.getElementById('message');
+        const counter = document.getElementById('char-counter');
+        
+        messageInput.addEventListener('input', () => {
+            const remaining = 500 - messageInput.value.length;
+            counter.textContent = `${remaining} caracteres restantes`;
+            if (remaining < 50) {
+                counter.classList.add('text-orange-500');
+                counter.classList.remove('text-gray-400');
+            } else {
+                counter.classList.remove('text-orange-500');
+                counter.classList.add('text-gray-400');
+            }
+        });
+        
+        // Validación simple en blur
+        document.querySelectorAll('input, textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && this.value.trim() === '') {
+                    this.classList.add('field-invalid');
+                    this.classList.remove('field-valid', 'border-gray-300');
+                } else if (this.type === 'email' && this.value.includes('@') && this.value.includes('.')) {
+                    this.classList.add('field-valid');
+                    this.classList.remove('field-invalid', 'border-gray-300');
+                } else if (this.value.trim() !== '') {
+                    this.classList.add('field-valid');
+                    this.classList.remove('field-invalid', 'border-gray-300');
+                } else {
+                    this.classList.remove('field-valid', 'field-invalid');
+                    this.classList.add('border-gray-300');
+                }
+            });
+        });
+        
+        // Prevenir envío del formulario (demo)
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Formulario válido. En un entorno real se enviaría la solicitud.');
+        });
+    </script>
+    
+    <!-- Estilos adicionales para certificaciones (simuladas) -->
+    <style>
+        .certification-badge {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .certification-badge::after {
+            content: 'ISO';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #4b5563;
+        }
+        
+        .certification-badge:last-child::after {
+            content: 'GPTW';
+        }
+    </style>
+</body>
+</html>

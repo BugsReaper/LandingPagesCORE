@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundWave Pro · Oferta relámpago</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        body {
+            background: #f5f5f5;
+            color: #1e1e1e;
+            line-height: 1.4;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* barra superior de urgencia */
+        .top-urgency {
+            background: #ff3b30;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .top-urgency i {
+            margin-right: 8px;
+        }
+        /* header sencillo */
+        header {
+            background: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ffcc00;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .logo span {
+            color: #ff3b30;
+        }
+        .rating {
+            background: #f0f0f0;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .rating i {
+            color: #ffb800;
+        }
+        /* producto: imagen + características lado a lado */
+        .product {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .product-image {
+            background: #f0f0f0;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ff3b30;
+            margin: 15px 0;
+        }
+        .price small {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #777;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        .features {
+            margin: 20px 0;
+        }
+        .features li {
+            list-style: none;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .features i {
+            color: #2ecc71;
+            font-size: 1.3rem;
+            width: 30px;
+        }
+        .countdown {
+            background: #fff2e5;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .countdown span {
+            font-weight: 700;
+            color: #d32f2f;
+        }
+        .timer {
+            display: flex;
+            gap: 8px;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .timer div {
+            background: #1e1e1e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 8px;
+            min-width: 55px;
+            text-align: center;
+        }
+        .btn-buy {
+            background: #ff3b30;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 2rem;
+            font-weight: 800;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(255,59,48,0.3);
+            transition: 0.2s;
+            margin: 15px 0;
+        }
+        .btn-buy:hover {
+            background: #e0352b;
+            transform: scale(1.02);
+        }
+        .extra-row {
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+        .extra-row i {
+            color: #ff3b30;
+            margin-right: 5px;
+        }
+        .stock {
+            background: #ffeedb;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            border-left: 4px solid #ff9900;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+        }
+        @media (max-width: 700px) {
+            .product { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-urgency">
+    <i class="fas fa-bolt"></i> ENVÍO GRATIS · STOCK BAJO · OFERTA TERMINA EN <span id="countdown-header">02:15:30</span>
+</div>
+
+<header>
+    <div class="logo">Sound<span>Wave</span> Pro</div>
+    <div class="rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 18k+ reseñas
+    </div>
+</header>
+
+<main class="container">
+    <div class="product">
+        <!-- Imagen del producto -->
+        <div class="product-image">
+            <img src="https://placehold.co/500x500/222/ff3b30?text=Auriculares+Pro" alt="SoundWave Pro">
+        </div>
+
+        <!-- Detalles y características (al lado) -->
+        <div class="product-details">
+            <h1>SoundWave Pro <span style="color:#ff3b30;">Edición Especial</span></h1>
+            
+            <div class="price">
+                $39.99 <small>$129.99</small>
+            </div>
+
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> Cancelación de ruido activa (hasta 30 dB)</li>
+                <li><i class="fas fa-check-circle"></i> Batería 40h con estuche de carga rápida</li>
+                <li><i class="fas fa-check-circle"></i> Sonido HD de alta fidelidad</li>
+                <li><i class="fas fa-check-circle"></i> Resistencia al agua IPX7</li>
+                <li><i class="fas fa-check-circle"></i> Bluetooth 5.3 (emparejamiento instantáneo)</li>
+            </ul>
+
+            <div class="countdown">
+                <span><i class="fas fa-hourglass-half"></i> Oferta termina en:</span>
+                <div class="timer" id="timer">
+                    <div id="hours">02</div><span>:</span><div id="minutes">15</div><span>:</span><div id="seconds">30</div>
+                </div>
+            </div>
+
+            <button class="btn-buy" onclick="comprar()">COMPRAR AHORA <i class="fas fa-shopping-cart"></i></button>
+
+            <div class="extra-row">
+                <span><i class="fas fa-truck"></i> Envío gratis</span>
+                <span><i class="fas fa-undo-alt"></i> 30 días de devolución</span>
+                <span><i class="fas fa-shield-alt"></i> Garantía 2 años</span>
+            </div>
+
+            <div class="stock">
+                <i class="fas fa-fire"></i> ¡Últimas 47 unidades disponibles!
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini sección de confianza (solo un refuerzo rápido) -->
+    <div style="text-align: center; margin: 20px 0;">
+        <p style="font-size: 1.1rem;">✅ Más de 18,473 compradores confían en nosotros</p>
+    </div>
+</main>
+
+<footer>
+    <p>SoundWave Pro © 2025 · Oferta por tiempo limitado</p>
+</footer>
+
+<script>
+    // Contador regresivo simple
+    let hours = 2, minutes = 15, seconds = 30;
+
+    function updateTimer() {
+        if (seconds > 0) seconds--;
+        else if (minutes > 0) { minutes--; seconds = 59; }
+        else if (hours > 0) { hours--; minutes = 59; seconds = 59; }
+        else {
+            document.getElementById('timer').innerHTML = "OFERTA TERMINADA";
+            return;
+        }
+        document.getElementById('hours').innerText = hours.toString().padStart(2,'0');
+        document.getElementById('minutes').innerText = minutes.toString().padStart(2,'0');
+        document.getElementById('seconds').innerText = seconds.toString().padStart(2,'0');
+        document.getElementById('countdown-header').innerText = 
+            `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    }
+    setInterval(updateTimer, 1000);
+
+    // Función de compra simulada
+    function comprar() {
+        alert('✅ Redirigiendo a la pasarela de pago segura...');
+        // Aquí iría el enlace real
+    }
+</script>
+
+</body>
+</html>
